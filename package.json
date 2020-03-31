@@ -1,0 +1,11 @@
+{
+  "name": "slots",
+  "version": "1.0.0",
+  "description": "Crypto Games",
+  "author": "Mc01",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^2.5.0",
+    "provable-eth-api": "^0.5.0-npmfix"
+  }
+}
