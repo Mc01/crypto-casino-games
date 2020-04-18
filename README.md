@@ -23,14 +23,14 @@ docker-compose up -d
 
 _Code is heavily documented to be viewed on Etherscan_
 
-For documentation please refer to functions:
+For documentation please refer to functions in `/contracts`:
 - `Token.transferAndCall()`
 - `Game.play()`
 - `<individual_game_contract>.handleSuccess()`
 
 Where `individual_game_contract` can be `Dice` contract for example
 
-## Externally interface
+## Integration
 
 _Following functions are externally callable_
 
