@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-from brownie import *
+# from brownie import *
 
 
-def main():
-    CharityProfile.deploy({'from': accounts[0]})
+# def main():
+#     CharityProfile.deploy({'from': accounts[0]})

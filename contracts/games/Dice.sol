@@ -3,8 +3,8 @@ pragma solidity >=0.5.0 <0.7.0;
 import "./Game.sol";
 
 
-contract Slots is Game {
-    // const
+contract Dice is Game {
+        // const
     uint256 constant MAX_INT_FROM_BYTE = 256;
     uint256 constant NUM_RANDOM_BYTES_REQUESTED = 7;
     uint256 constant GAS_FOR_CALLBACK = 200000;

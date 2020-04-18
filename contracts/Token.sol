@@ -38,9 +38,11 @@ contract Token is ERC20Detailed, ERC20, Ownable, IToken {
 
     // initializer
     constructor(
-        string memory name, string memory symbol, uint8 decimals
+        string memory theName,
+        string memory theSymbol,
+        uint8 theDecimals
     ) public
-    ERC20Detailed(name, symbol, decimals)
+    ERC20Detailed(theName, theSymbol, theDecimals)
     Ownable() {}
 
     // setters
@@ -99,6 +101,7 @@ contract Token is ERC20Detailed, ERC20, Ownable, IToken {
         game.play(msg.sender, amount);
     }
 
+    // callable from game contract; callback method for handling success
     function handleSuccess(address player, uint256 amount) external
     onlyAfterInit() {
         validateGame(msg.sender);

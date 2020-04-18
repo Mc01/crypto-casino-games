@@ -6,9 +6,19 @@ import "../../interfaces/IToken.sol";
 
 
 contract Game is usingProvable {
+    // abstract members
+    function getNumRandomBytesRequested() internal returns (uint256);
+    function getGasForCallback() internal returns (uint256);
+
+    // abstract handler
+    function handleSuccess(
+        Bet memory,
+        string memory
+    ) internal;
+
     // members
-    IToken private _token;
-    mapping (bytes32 => Bet) private _bets;
+    IToken internal _token;
+    mapping (bytes32 => Bet) internal _bets;
 
     // bet model
     struct Bet {
@@ -18,16 +28,13 @@ contract Game is usingProvable {
     }
 
     // consts
-    uint256 constant MAX_INT_FROM_BYTE = 256;
     uint256 constant QUERY_EXECUTION_DELAY = 0;
-    uint256 constant NUM_RANDOM_BYTES_REQUESTED = 7;
-    uint256 constant GAS_FOR_CALLBACK = 200000;
 
     // events
     event LogNewProvableQuery(bytes32 queryId, address player, uint256 stake);
     event InvalidProvableQuery(bytes32 queryId, uint8 returnCode);
     event FailedProvableQuery(bytes32 queryId, string result, bytes proof, uint8 returnCode);
-    event SucceddedProvableQuery(bytes32 queryId, uint256 result);
+    event SucceddedProvableQuery(bytes32 queryId, string result);
 
     // Provable checker
     modifier onlyProvable() {
@@ -49,16 +56,18 @@ contract Game is usingProvable {
         provable_setProof(proofType_Ledger);
     }
 
+    // public entrypoint
     function play(address player, uint256 stake) external {
         bytes32 queryId = provable_newRandomDSQuery(
             QUERY_EXECUTION_DELAY,
-            NUM_RANDOM_BYTES_REQUESTED,
-            GAS_FOR_CALLBACK
+            getNumRandomBytesRequested(),
+            getGasForCallback()
         );
         _bets[queryId] = Bet(player, stake, true);
         emit LogNewProvableQuery(queryId, player, stake);
     }
 
+    // Provable callback
     function __callback(
         bytes32 queryId,
         string memory result,
@@ -73,13 +82,12 @@ contract Game is usingProvable {
         else if (returnCode != 0) {
             emit FailedProvableQuery(queryId, result, proof, returnCode);
         } else {
-            uint256 ceiling = (MAX_INT_FROM_BYTE ** NUM_RANDOM_BYTES_REQUESTED) - 1;
-            uint256 randomNumber = uint256(keccak256(abi.encodePacked(result))) % ceiling;
-            emit SucceddedProvableQuery(queryId, randomNumber);
-            _token.handleSuccess(bet.player, bet.stake);
+            emit SucceddedProvableQuery(queryId, result);
+            handleSuccess(bet, result);
         }
     }
 
+    // interface check
     function isGame() external pure returns (bool) {
         return true;
     }
