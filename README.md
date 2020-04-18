@@ -35,11 +35,17 @@ Where `individual_game_contract` can be `Dice` contract for example
 _Following functions are externally callable_
 
 Dashboard:
-- Read
--> `Dashboard.lastGameId() -> int`
--> `Dashboard.gameIds(gameId: int) -> address`
--> `Dashboard.games(game: address) -> (int, address, bool)`
+- `Dashboard.lastGameId() -> int`
+- `Dashboard.gameIds(gameId: int) -> address`
+- `Dashboard.games(game: address) -> (int, address, bool)`
 
 Token:
-- Write
--> `Token.transferAndCall(tokens: int, game: address, context: bytes[])`
+- `Token.transferAndCall(tokens: int, game: address, context: bytes[])`
+
+Example of `transferAndCall` for scenario:
+- stake: 100 tokens
+- game address: 0x123
+- context -> risk: 1111
+```
+- Token.transferAndCall(100, 0x123, [web3.bytes(1111)])
+```
