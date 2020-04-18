@@ -1,7 +1,7 @@
 version: "3.7"
 services:
     ganache:
-        build: .
+        image: trufflesuite/ganache-cli
         container_name: ganache
         restart: always
         ports:
