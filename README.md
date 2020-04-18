@@ -53,3 +53,19 @@ Token.transferAndCall(
     [web3.bytes(1111)]
 )
 ```
+
+How integration can be approached?
+- integrate Web3 with client
+- configure for Rinkeby testnet network
+- load private keys from securely stored credentials
+- integrate ABI interfaces
+- instantiate contract
+- start integration from Dashboard's methods
+- -> they are `call` functions, means they are read-only
+- -> they returns simple and complex values
+- implement `transferAndCall` for Token
+- -> this method is `transaction` function, means write-only
+- -> it requires to be owner of staked tokens
+- -> it accepts address of 
+- -> additionally Web3 coded bytes are passed in context
+- add creation of new Game contract
