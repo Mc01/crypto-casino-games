@@ -47,5 +47,9 @@ Example of `transferAndCall` for scenario:
 - game address: 0x123
 - context -> risk: 1111
 ```
-- Token.transferAndCall(100, 0x123, [web3.bytes(1111)])
+Token.transferAndCall(
+    100, 
+    0x123, 
+    [web3.bytes(1111)]
+)
 ```
