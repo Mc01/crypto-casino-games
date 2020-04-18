@@ -1,3 +1,9 @@
+/*
+
+    Written with joy by https://github.com/Mc01
+    - Slots game is the game about typical casino's slots
+
+ */
 pragma solidity >=0.5.0 <0.7.0;
 
 import "./Game.sol";
@@ -5,8 +11,7 @@ import "./Game.sol";
 
 contract Slots is Game {
     // const
-    uint256 constant MAX_INT_FROM_BYTE = 256;
-    uint256 constant NUM_RANDOM_BYTES_REQUESTED = 7;
+    uint256 constant NUM_RANDOM_BYTES_REQUESTED = 24;
     uint256 constant GAS_FOR_CALLBACK = 200000;
 
     // overriden abstract members
@@ -22,10 +27,28 @@ contract Slots is Game {
         Bet memory bet,
         string memory result
     ) internal {
-        uint256 ceiling = (MAX_INT_FROM_BYTE ** NUM_RANDOM_BYTES_REQUESTED) - 1;
-        uint256 randomNumber = uint256(keccak256(abi.encodePacked(result))) % ceiling;
-        if (randomNumber > 100) {
-            _token.handleSuccess(bet.player, bet.stake);
+        /*
+
+            Assumptions:
+            - 24 required bytes
+            - 0-255 range on 1 byte possible
+
+            TODO:
+            - may require more sophisticated random
+            - 0-65K range on 2 bytes
+            - 0-16M range on 3 bytes
+            - What strategy for breakdown?
+
+         */
+        uint8[] memory randomNumbers;
+        for (uint256 i = 0; i < NUM_RANDOM_BYTES_REQUESTED; i++) {
+            randomNumbers[i] = 0;
         }
+    }
+
+    // context check
+    function isValidContext() external pure
+    returns (bool) {
+        return true;
     }
 }

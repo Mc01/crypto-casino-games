@@ -5,4 +5,4 @@ services:
         container_name: ganache
         restart: always
         ports:
-            - "7545:8545"
+            - "8545:8545"

@@ -94,11 +94,18 @@ contract Token is ERC20Detailed, ERC20, Ownable, IToken {
     }
 
     // public entrypoint, based on ERC827->transferAndCall
-    function transferAndCall(uint256 amount, address gameAddress) external
+    function transferAndCall(
+        uint256 amount,
+        address gameAddress,
+        bytes32[] calldata context
+    ) external
     onlyAfterInit() {
         IGame game = validateGame(gameAddress);
+        if (!game.isValidContext(context)) {
+            revert("Game context is not valid!");
+        }
         transfer(address(_vault), amount);
-        game.play(msg.sender, amount);
+        game.play(msg.sender, amount, context);
     }
 
     // callable from game contract; callback method for handling success
