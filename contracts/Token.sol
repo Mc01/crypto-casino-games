@@ -93,13 +93,38 @@ contract Token is ERC20Detailed, ERC20, Ownable, IToken {
         return game;
     }
 
-    // public entrypoint, based on ERC827->transferAndCall
+    // public entrypoint, inspired by ERC827->transferAndCall
     function transferAndCall(
         uint256 amount,
         address gameAddress,
         bytes32[] calldata context
     ) external
     onlyAfterInit() {
+        /*
+
+            Workflow for transfer and call is like this:
+
+            - Token validates Game address
+
+            - Token checks permissions and provided context
+            -> Context is just a list of parameters
+            -> For example:
+            --> argument [ bytes32(uint256(5000)) ]
+            --> will be decoded to number 5000 in function handleSuccess() for Dice game
+            -> Context is validated with Game's function isValidContext()
+
+            - Stake is transferred to Vault for game time
+            -> Vault is safe on-chain storage contract
+            -> Vault holds Casino Tokens and sends reward in case of won game
+
+            - Game is started and call to Provable is initiated
+            -> Number of bytes in each game determines how big random would be returned
+
+            - Provable invokes callback function for Game with supplied random number
+
+            - Game logic processes random number and calls handleSuccess() function if game is won
+
+        */
         IGame game = validateGame(gameAddress);
         if (!game.isValidContext(context)) {
             revert("Game context is not valid!");

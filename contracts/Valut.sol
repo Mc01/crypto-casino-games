@@ -5,6 +5,13 @@ import "../node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "../interfaces/IToken.sol";
 import "../interfaces/IVault.sol";
 
+/*
+
+    TODO:
+    - owner
+    - withdrawal
+
+ */
 
 contract Valut is IVault {
     // members

@@ -6,6 +6,10 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^2.5.0",
+    "brownie": "^0.9.9",
     "provable-eth-api": "^0.5.0-npmfix"
+  },
+  "scripts": {
+    "compile": "brownie compile"
   }
 }
