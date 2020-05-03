@@ -11,7 +11,7 @@ services:
             - ./contracts/:/app/contracts/
             - ./interfaces/:/app/interfaces/
             - ./migrations/:/app/migrations/
-            - ./tests/:/app/tests/
+            - ./test/:/app/test/
             - ./package.json:/app/package.json
             - ./truffle.js:/app/truffle.js
  
