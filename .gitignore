@@ -1,6 +1,9 @@
 build/
-reports/
-__pycache__
-.pytest_cache
 node_modules/
 package-lock.json
+.env
+.deployed
+coverage/
+coverage.json
+.vscode
+.idea

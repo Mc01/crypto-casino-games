@@ -4,8 +4,36 @@
   "description": "Crypto Games",
   "author": "Mc01",
   "license": "ISC",
+  "scripts": {
+    "clean": "rimraf build",
+    "precompile": "npm run clean",
+    "compile": "truffle compile",
+    "predebug": "npm run compile",
+    "debug": "truffle debug --network ganache",
+    "premigrate": "npm run clean",
+    "migrate": "truffle migrate --network ganache",
+    "premigrate-rinkeby": "npm run clean",
+    "migrate-rinkeby": "truffle migrate --network rinkeby",
+    "premigrate-debug": "npm run clean",
+    "migrate-debug": "node --inspect ./node_modules/.bin/truffle migrate --network rinkeby",
+    "pretest": "npm run clean",
+    "test": "truffle test --network ganache",
+    "precoverage": "npm run clean",
+    "coverage": "solidity-coverage",
+    "serve": "ganache-cli -e 1000000 -p 7545 -h 0.0.0.0"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^2.5.0",
-    "provable-eth-api": "^0.5.0-npmfix"
+    "@truffle/hdwallet-provider": "^1.0.34",
+    "coveralls": "^3.1.0",
+    "dotenv": "^8.2.0",
+    "eth-gas-reporter": "^0.2.17",
+    "ganache-cli": "^6.9.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "provable-eth-api": "^0.5.0-npmfix",
+    "rimraf": "^3.0.2",
+    "solidity-coverage": "^0.7.5",
+    "truffle": "^5.1.24",
+    "truffle-hdwallet-provider-privkey": "^0.3.0"
   }
 }

@@ -1,11 +1,11 @@
-compile:
-	brownie compile
+npm:
+	docker-compose run ganache npm run $(run)
 
-deploy:
-	brownie run deploy
+compile: run=compile
+compile: npm
 
-test:
-	brownie test
+test: run=test
+test: npm
 
-coverage:
-	brownie test --coverage
+migrate: run=migrate
+migrate: npm
