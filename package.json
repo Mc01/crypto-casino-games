@@ -5,7 +5,7 @@
   "author": "Mc01",
   "license": "ISC",
   "scripts": {
-    "clean": "rimraf build",
+    "clean": "rimraf build/*",
     "precompile": "npm run clean",
     "compile": "truffle compile",
     "predebug": "npm run compile",

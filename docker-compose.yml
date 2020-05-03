@@ -5,12 +5,13 @@ services:
         container_name: ganache
         restart: always
         ports:
-          - "7545:7545"
+            - "7545:7545"
         volumes:
-          - ./contracts/:/app/contracts/
-          - ./interfaces/:/app/interfaces/
-          - ./migrations/:/app/migrations/
-          - ./tests/:/app/tests/
-          - ./package.json:/app/package.json
-          - ./truffle.js:/app/truffle.js
+            - ./build/:/app/build/
+            - ./contracts/:/app/contracts/
+            - ./interfaces/:/app/interfaces/
+            - ./migrations/:/app/migrations/
+            - ./tests/:/app/tests/
+            - ./package.json:/app/package.json
+            - ./truffle.js:/app/truffle.js
  
